@@ -68,6 +68,100 @@ body.dark .notice{background:#243957;color:#cde1ff}
 @media(max-width:1000px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:720px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.top{gap:8px}.logo{font-size:18px}.search{order:3;flex-basis:100%}.actions{margin-left:auto}.actions button{padding:7px 5px;font-size:12px}.banner{padding:22px;min-height:150px}.product-pic{height:120px;font-size:60px}.card{padding:9px}.card h3{font-size:14px}.price{font-size:17px}.section-head h2{font-size:19px}}
 @media(max-width:360px){.grid{grid-template-columns:1fr}.product-pic{height:160px}}
+  /* OLD BLACK + WHITE + ORANGE THEME */
+header {
+  background: linear-gradient(135deg, #111111, #444444) !important;
+  color: white !important;
+}
+
+.categories {
+  background: #ffffff !important;
+  color: #222222 !important;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.categories button {
+  background: linear-gradient(#ffffff, #f7f8fa) !important;
+  color: #30343b !important;
+  border: 1px solid #e2e5e9 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 3px 9px #00000012;
+  font-weight: 700 !important;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.categories button:hover {
+  transform: translateY(-2px);
+  border-color: #ff9800 !important;
+}
+
+.banner {
+  background: linear-gradient(135deg, #202020, #555555) !important;
+  color: white;
+}
+
+.actions button,
+.action-tab {
+  border: 1px solid #dddddd !important;
+  border-radius: 10px !important;
+  box-shadow: 0 3px 10px #00000025;
+  font-weight: 700 !important;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.actions button:hover,
+.action-tab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px #00000030;
+}
+
+.add, .cart-btn {
+  background: linear-gradient(135deg, #ffb52e, #ff9800) !important;
+  color: #171717 !important;
+}
+
+.buy, .buy-now-btn {
+  background: linear-gradient(135deg, #e53935, #c62828) !important;
+  color: #ffffff !important;
+}
+
+.product-pic {
+  background: #ffffff !important;
+  overflow: hidden;
+}
+
+.product-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  padding: 8px;
+}
+
+.card {
+  border: 1px solid #eeeeee;
+  box-shadow: 0 4px 15px #00000015;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px #00000020;
+}
+
+@media (max-width: 600px) {
+  .product-pic {
+    height: 145px;
+  }
+
+  .card-buttons {
+    flex-wrap: wrap;
+  }
+
+  .card-buttons button {
+    min-height: 40px;
+  }
+}
 </style>
 </head>
 <body>
@@ -237,7 +331,23 @@ const products = [
  {id:14,name:"Bluetooth Speaker",cat:"Electronics",price:999,old:1499,emoji:"🔊",rating:4.2,desc:"Portable speaker for music."},
  {id:15,name:"Sunglasses",cat:"Fashion",price:399,old:699,emoji:"🕶️",rating:4.0,desc:"Casual sunglasses."}
 ];
-
+const productImages = {
+  1: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+  2: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80",
+  3: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80",
+  4: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80",
+  5: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80",
+  6: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80",
+  7: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80",
+  8: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80",
+  9: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80",
+  10: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=600&q=80",
+  11: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=600&q=80",
+  12: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=600&q=80",
+  13: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=600&q=80",
+  14: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=600&q=80",
+  15: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80"
+};
 let category="All";
 let cart=[];
 let wishlist=[];
@@ -270,7 +380,7 @@ function renderProducts(){
  el.innerHTML=list.map(p=>`
  <article class="card">
   <button class="heart" aria-label="Add to wishlist" onclick="toggleWishlist(${p.id})">${wishlist.includes(p.id)?"❤️":"♡"}</button>
-  <div class="product-pic" onclick="showDetails(${p.id})">${p.emoji}</div>
+  <div class="product-pic" onclick="showDetails(${p.id})">   <img     src="${productImages[p.id] || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80'}"     alt="${escapeHTML(p.name)}"     loading="lazy"     onerror="this.onerror=null;this.style.display='none';this.parentElement.textContent='🛍️';"   > </div>
   <h3 onclick="showDetails(${p.id})">${escapeHTML(p.name)}</h3>
   <div class="rating">★ ${p.rating} | Demo rating</div>
   <div class="price">${money(p.price)} <span class="old">${money(p.old)}</span></div>
